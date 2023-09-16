@@ -110,16 +110,19 @@
 </section>
 
 <script>
-   var canvas = document.getElementById('birdCanvas');
+ var canvas = document.getElementById('birdCanvas');
 var ctx = canvas.getContext('2d');
-var birdY = 150;
-var gravity = 1.0;
+var birdY = canvas.height / 2;
+var gravity = 0.5;
+var velocity = 0;
 var score = 0;
 var isGameOver = false;
+var pipes = [];
+var pipeGap = 100; // Gap between the upper and lower pipes
 
 function moveUp() {
     if (!isGameOver) {
-        birdY -= 25;
+        velocity = -8;
     }
 }
 
@@ -127,57 +130,59 @@ document.addEventListener('keydown', moveUp);
 canvas.addEventListener('click', moveUp);
 canvas.addEventListener('touchstart', moveUp);
 
-var pipe = [];
-pipe[0] = {
-    x: canvas.width,
-    y: 0
-};
-
-function gameOver() {
-    isGameOver = true;
-    document.getElementById('gameOver').style.display = 'block';
-    document.getElementById('finalScore').innerText = score;
+function drawBird() {
+    ctx.fillStyle = "yellow";
+    ctx.fillText("🫑", 50, birdY);
 }
 
-function restartGame() {
-    location.reload();
-}
+function drawPipes() {
+    for (var i = 0; i < pipes.length; i++) {
+        ctx.fillStyle = "green";
+        ctx.fillRect(pipes[i].x, 0, 20, pipes[i].top);
+        ctx.fillRect(pipes[i].x, pipes[i].top + pipeGap, 20, canvas.height - pipes[i].top - pipeGap);
+        pipes[i].x -= 2;
 
-function draw() {
-    ctx.fillStyle = '#70c5ce';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    for (var i = 0; i < pipe.length; i++) {
-        ctx.fillStyle = '#006400';
-        ctx.fillRect(pipe[i].x, 0, 50, pipe[i].y);
-        ctx.fillRect(pipe[i].x, pipe[i].y + 100, 50, canvas.height - pipe[i].y - 100);
-        pipe[i].x--;
-        if (pipe[i].x == 125) {
-            pipe.push({
-                x: canvas.width,
-                y: Math.floor(Math.random() * 200) + 50
-            });
+        // Collision detection
+        if (50 < pipes[i].x + 20 && 50 + 20 > pipes[i].x && (birdY < pipes[i].top || birdY + 20 > pipes[i].top + pipeGap)) {
+            isGameOver = true;
+            document.getElementById('gameOver').style.display = 'block';
+            document.getElementById('finalScore').textContent = score;
         }
-        if (birdY + 30 >= canvas.height || birdY <= 0 || (pipe[i].x <= 50 && pipe[i].x >= 0 && (birdY <= pipe[i].y || birdY >= pipe[i].y + 70))) {
-            gameOver();
-            return;
-        }
-        if (pipe[i].x == 0) {
+
+        // Remove pipes that are out of the canvas
+        if (pipes[i].x < -20) {
+            pipes.splice(i, 1);
             score++;
         }
     }
-    ctx.fillStyle = '#8B4513';
-    ctx.fillRect(0, canvas.height - 20, canvas.width, 20);
-    ctx.font = '30px Arial';
-    ctx.fillText('🫑', 50, birdY);
-    birdY += gravity;
-    ctx.fillStyle = '#000';
-    ctx.font = '20px Verdana';
-    ctx.fillText('Score: ' + score, 10, canvas.height - 30);
-    if (!isGameOver) {
-        requestAnimationFrame(draw);
-    }
 }
-draw();
+
+function generatePipes() {
+    var top = Math.floor(Math.random() * (canvas.height - pipeGap - 50)) + 50;
+    pipes.push({ x: canvas.width, top: top });
+}
+
+setInterval(function() {
+    if (!isGameOver) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        velocity += gravity;
+        birdY += velocity;
+        drawBird();
+        drawPipes();
+        if (pipes.length === 0 || pipes[pipes.length - 1].x === 150) {
+            generatePipes();
+        }
+    }
+}, 20);
+
+function restartGame() {
+    birdY = canvas.height / 2;
+    velocity = 0;
+    score = 0;
+    pipes = [];
+    isGameOver = false;
+    document.getElementById('gameOver').style.display = 'none';
+}
 </script>
     
     <!-- About Section -->
