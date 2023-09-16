@@ -97,6 +97,88 @@
         <a class="zine-link" href="https://drive.google.com/file/d/1UIgJ2PHElNzplHK13HLkPpAdHFT_AI0e/view?usp=sharing" target="_blank">Microdoodle zine vol 1 issue 1</a>
         <!-- Add other 8 page zines here -->
     </section>
+
+    <!-- Games Section -->
+<section id="games">
+    <h2>Flappy Pepper Game</h2>
+    <canvas id="birdCanvas" width="480" height="320"></canvas>
+    <div id="gameOver">
+        <h2>Game Over!</h2>
+        <p>Your Score: <span id="finalScore"></span></p>
+        <button onclick="restartGame()">Restart</button>
+    </div>
+</section>
+
+<script>
+   var canvas = document.getElementById('birdCanvas');
+var ctx = canvas.getContext('2d');
+var birdY = 150;
+var gravity = 1.0;
+var score = 0;
+var isGameOver = false;
+
+function moveUp() {
+    if (!isGameOver) {
+        birdY -= 25;
+    }
+}
+
+document.addEventListener('keydown', moveUp);
+canvas.addEventListener('click', moveUp);
+canvas.addEventListener('touchstart', moveUp);
+
+var pipe = [];
+pipe[0] = {
+    x: canvas.width,
+    y: 0
+};
+
+function gameOver() {
+    isGameOver = true;
+    document.getElementById('gameOver').style.display = 'block';
+    document.getElementById('finalScore').innerText = score;
+}
+
+function restartGame() {
+    location.reload();
+}
+
+function draw() {
+    ctx.fillStyle = '#70c5ce';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    for (var i = 0; i < pipe.length; i++) {
+        ctx.fillStyle = '#006400';
+        ctx.fillRect(pipe[i].x, 0, 50, pipe[i].y);
+        ctx.fillRect(pipe[i].x, pipe[i].y + 100, 50, canvas.height - pipe[i].y - 100);
+        pipe[i].x--;
+        if (pipe[i].x == 125) {
+            pipe.push({
+                x: canvas.width,
+                y: Math.floor(Math.random() * 200) + 50
+            });
+        }
+        if (birdY + 30 >= canvas.height || birdY <= 0 || (pipe[i].x <= 50 && pipe[i].x >= 0 && (birdY <= pipe[i].y || birdY >= pipe[i].y + 70))) {
+            gameOver();
+            return;
+        }
+        if (pipe[i].x == 0) {
+            score++;
+        }
+    }
+    ctx.fillStyle = '#8B4513';
+    ctx.fillRect(0, canvas.height - 20, canvas.width, 20);
+    ctx.font = '30px Arial';
+    ctx.fillText('🫑', 50, birdY);
+    birdY += gravity;
+    ctx.fillStyle = '#000';
+    ctx.font = '20px Verdana';
+    ctx.fillText('Score: ' + score, 10, canvas.height - 30);
+    if (!isGameOver) {
+        requestAnimationFrame(draw);
+    }
+}
+draw();
+</script>
     
     <!-- About Section -->
    <section id="about">
