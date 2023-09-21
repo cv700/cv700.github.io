@@ -149,8 +149,7 @@ const db = firebase.firestore();
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             });
         }
-        
-          // Function to retrieve and display the top 10 scores
+     
                 // Function to retrieve and display the top 10 scores
         async function displayTopScores() {
             const querySnapshot = await db.collection("highScores")
