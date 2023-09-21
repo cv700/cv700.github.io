@@ -167,7 +167,6 @@ const db = firebase.firestore();
             });
         }
 
-<script>
 var canvas = document.getElementById('birdCanvas');
 var ctx = canvas.getContext('2d');
 var birdY = canvas.height / 2;
@@ -178,6 +177,8 @@ var isGameOver = false;
 var pipes = [];
 var pipeGap = 140; // Gap between the upper and lower pipes
 var floorY = canvas.height - 30; // Setting the floor 0 pixels from the bottom of the canvas
+var isGameOver = false;
+var gameOverProcessed = false; 
 
 function moveUp() {
     if (!isGameOver) {
@@ -264,6 +265,7 @@ function restartGame() {
     score = 0;
     pipes = [];
     isGameOver = false;
+    gameOverProcessed = false;  // Reset the variable when restarting the game
     document.getElementById('gameOver').style.display = 'none';
 }
 
