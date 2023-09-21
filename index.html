@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -174,11 +181,10 @@ var gravity = 0.5;
 var velocity = 0;
 var score = 0;
 var isGameOver = false;
+var gameOverProcessed = false;  // New variable to ensure game over logic runs once
 var pipes = [];
 var pipeGap = 140; // Gap between the upper and lower pipes
 var floorY = canvas.height - 30; // Setting the floor 0 pixels from the bottom of the canvas
-var isGameOver = false;
-var gameOverProcessed = false; 
 
 function moveUp() {
     if (!isGameOver) {
