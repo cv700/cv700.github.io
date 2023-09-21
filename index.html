@@ -139,14 +139,6 @@
 
 <script>
 window.onload = function() {
-    var canvas = document.getElementById('birdCanvas');
-    var ctx = canvas.getContext('2d');
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(0, 0, 50, 50);
-    console.log('Rectangle should be drawn.');
-};
-
-window.onload = function() {
 const firebaseConfig = {
   apiKey: "AIzaSyAHcwHEW6d8bK83nbZnj2JU6CtLLWaVKnQ",
   authDomain: "zinebrosbackend.firebaseapp.com",
@@ -281,6 +273,7 @@ setInterval(function() {
 }, 20);
 
 function restartGame() {
+    console.log("Restart game function called"); 
     birdY = canvas.height / 2;
     velocity = 0;
     score = 0;
