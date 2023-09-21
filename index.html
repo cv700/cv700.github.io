@@ -71,7 +71,17 @@
             border-bottom: 2px solid #333;
             padding-bottom: 10px;
         }
+          #highScores {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
     </style>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js"></script>
 </head>
 <body>
     <nav>
@@ -97,7 +107,26 @@
         <a class="zine-link" href="https://drive.google.com/file/d/1UIgJ2PHElNzplHK13HLkPpAdHFT_AI0e/view?usp=sharing" target="_blank">Microdoodle zine vol 1 issue 1</a>
         <!-- Add other 8 page zines here -->
     </section>
-    
+
+<!-- High Scores Section -->
+    <section id="highScores">
+        <h2>Top 10 High Scores</h2>
+        <ul id="highScoreList">
+            <!-- High scores will be populated here -->
+        </ul>
+    </section>
+
+    <!-- Games Section -->
+<section id="games">
+    <h2>Flappy Pepper Game</h2>
+    <canvas id="birdCanvas" width="480" height="320"></canvas>
+    <div id="gameOver">
+        <h2>Game Over!</h2>
+        <p>Your Score: <span id="finalScore"></span></p>
+        <button onclick="restartGame()">Restart</button>
+    </div>
+</section>
+
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAHcwHEW6d8bK83nbZnj2JU6CtLLWaVKnQ",
@@ -110,17 +139,34 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-    <!-- Games Section -->
-<section id="games">
-    <h2>Flappy Pepper Game</h2>
-    <canvas id="birdCanvas" width="480" height="320"></canvas>
-    <div id="gameOver">
-        <h2>Game Over!</h2>
-        <p>Your Score: <span id="finalScore"></span></p>
-        <button onclick="restartGame()">Restart</button>
-    </div>
-</section>
+  // Function to add a new score
+        async function addScore(name, score) {
+            await db.collection("highScores").add({
+                name: name,
+                score: score,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        }
+        
+          // Function to retrieve and display the top 10 scores
+                // Function to retrieve and display the top 10 scores
+        async function displayTopScores() {
+            const querySnapshot = await db.collection("highScores")
+                .orderBy("score", "desc")
+                .orderBy("timestamp", "desc")
+                .limit(10).get();
+
+            const list = document.getElementById('highScoreList');
+            list.innerHTML = '';
+            querySnapshot.forEach((doc) => {
+                const li = document.createElement('li');
+                const data = doc.data();
+                li.textContent = `${data.name}: ${data.score}`;
+                list.appendChild(li);
+            });
+        }
 
 <script>
 var canvas = document.getElementById('birdCanvas');
@@ -204,6 +250,26 @@ function restartGame() {
     isGameOver = false;
     document.getElementById('gameOver').style.display = 'none';
 }
+    // Existing Flappy Bird game over logic
+        if (isGameOver) {
+            document.getElementById('gameOver').style.display = 'block';
+            document.getElementById('finalScore').textContent = score;
+
+            // Edge case handling: Prompt user for a name until a valid name is provided
+            let name = prompt("Congratulations on your score! Please enter your name:");
+            while (!name || name.trim() === "") {
+                name = prompt("Name cannot be empty. Please enter your name:");
+            }
+            if (name) {
+                addScore(name, score).then(() => {
+                    displayTopScores();
+                });
+            }
+        }
+
+        // Initialize the high scores list on page load
+        displayTopScores();
+
 </script>
     
     <!-- About Section -->
