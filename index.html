@@ -145,7 +145,9 @@ const firebaseConfig = {
   measurementId: "G-HF1XY9LXT0"
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 const db = firebase.firestore();
 
   // Function to add a new score
@@ -248,22 +250,22 @@ setInterval(function() {
     }
 
     // Check for game over inside the setInterval function
-    if (isGameOver && !gameOverProcessed) {
-    document.getElementById('gameOver').style.display = 'block';
-    document.getElementById('finalScore').textContent = score;
+      if (isGameOver && !gameOverProcessed) {
+        gameOverProcessed = true;
+        document.getElementById('gameOver').style.display = 'block';
+        document.getElementById('finalScore').textContent = score;
 
-    // Edge case handling: Prompt user for a name until a valid name is provided
-    let name = prompt("Congratulations on your score! Please enter your name:");
-    while (!name || name.trim() === "") {
-        name = prompt("Name cannot be empty. Please enter your name:");
+        // Edge case handling: Prompt user for a name until a valid name is provided
+        let name = prompt("Congratulations on your score! Please enter your name:");
+        while (!name || name.trim() === "") {
+            name = prompt("Name cannot be empty. Please enter your name:");
+        }
+        if (name) {
+            addScore(name, score).then(() => {
+                displayTopScores();
+            });
+        }
     }
-    if (name) {
-        addScore(name, score).then(() => {
-            displayTopScores();
-        });
-    }
-    gameOverProcessed = true;  // Set the variable to true after processing game over logic
-}
 }, 20);
 
 function restartGame() {
