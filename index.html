@@ -239,6 +239,23 @@ setInterval(function() {
             generatePipes();
         }
     }
+
+    // Check for game over inside the setInterval function
+    if (isGameOver) {
+        document.getElementById('gameOver').style.display = 'block';
+        document.getElementById('finalScore').textContent = score;
+
+        // Edge case handling: Prompt user for a name until a valid name is provided
+        let name = prompt("Congratulations on your score! Please enter your name:");
+        while (!name || name.trim() === "") {
+            name = prompt("Name cannot be empty. Please enter your name:");
+        }
+        if (name) {
+            addScore(name, score).then(() => {
+                displayTopScores();
+            });
+        }
+    }
 }, 20);
 
 function restartGame() {
@@ -249,22 +266,6 @@ function restartGame() {
     isGameOver = false;
     document.getElementById('gameOver').style.display = 'none';
 }
-    // Existing Flappy Bird game over logic
-        if (isGameOver) {
-            document.getElementById('gameOver').style.display = 'block';
-            document.getElementById('finalScore').textContent = score;
-
-            // Edge case handling: Prompt user for a name until a valid name is provided
-            let name = prompt("Congratulations on your score! Please enter your name:");
-            while (!name || name.trim() === "") {
-                name = prompt("Name cannot be empty. Please enter your name:");
-            }
-            if (name) {
-                addScore(name, score).then(() => {
-                    displayTopScores();
-                });
-            }
-        }
 
         // Initialize the high scores list on page load
         displayTopScores();
