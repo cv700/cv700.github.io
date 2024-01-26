@@ -91,28 +91,34 @@
         <a href="https://curator.io" target="_blank" class="crt-logo crt-tag">Powered by Curator.io</a>
     </div>
 
-    <section id="about">
-        <!-- About section content -->
+     <!-- About Section -->
+   <section id="about">
+        <h2>About Zine Bros</h2>
+        <p>Zine Bros is a library of little zines. Check out our contests in the seasonal Steinbeck zine! We also welcome submissions. New stuff published once in a blue moon. </p>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact">
-        <!-- Contact section content -->
+        <h2>Contact Us</h2>
+            <p>If you have any questions, suggestions, contest entries, or zines you'd like to share, please reach out to our Net-itor</p>
+        <ul>
+            <li>Email: <a href="mailto:coopveit@gmail.com">coopveit@gmail.com</a></li>
+        </ul>
     </section>
 
     <footer>
-        <!-- Footer content -->
+        &copy; 2023 Fanzini Brothers. All rights reserved.
     </footer>
-
+    <script data-goatcounter="https://cv700.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
     <script type="text/javascript">
-        /* curator-feed-default-feed-layout */
-        (function(){
-            var i,e,d=document,s="script";
-            i=d.createElement("script");i.async=1;i.charset="UTF-8";
-            i.src="https://cdn.curator.io/published/055c4951-381b-479e-b5b9-c90512b6a4c4.js";
-            e=d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
-        })();
+    /* curator-feed-default-feed-layout */
+    (function(){
+    var i,e,d=document,s="script";i=d.createElement("script");i.async=1;i.charset="UTF-8";
+    i.src="https://cdn.curator.io/published/055c4951-381b-479e-b5b9-c90512b6a4c4.js";
+    e=d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
+    })();
     </script>
-
 </body>
 </html>
 
