@@ -73,11 +73,18 @@
     </header>
     
     <section class="zine-category" id="16-page-zines">
-        <!-- 16-page zine links -->
+        <h2>16 Page Zines</h2>
+        <a class="zine-link" href="https://drive.google.com/file/d/1pcmMzLXjEC7NHJI9XqiuBVwrhIpTU5jV/view?usp=share_link" target="_blank">Steinbeck Zine Issue 1</a>
+        <a class="zine-link" href="https://drive.google.com/file/d/1Uje8y9ZSYbxEehpd2xUZZE7TJXsuz8bC/view?usp=sharing" target="_blank">Steinbeck Zine Issue 2</a>
+        <!-- Add other 16 page zines here -->
     </section>
 
+    <!-- 8 Page Zines -->
     <section class="zine-category" id="8-page-zines">
-        <!-- 8-page zine links -->
+        <h2>8 Page Zines</h2>
+        <a class="zine-link" href="https://drive.google.com/file/d/1P2i6lxAvT2jLcj5kncV1wAAjVkLSwvNI/view?usp=drivesdk" target="_blank">Japanese Patent Diagram Enthusiast Issue 1</a>
+        <a class="zine-link" href="https://drive.google.com/file/d/1UIgJ2PHElNzplHK13HLkPpAdHFT_AI0e/view?usp=sharing" target="_blank">Microdoodle zine vol 1 issue 1</a>
+        <!-- Add other 8 page zines here -->
     </section>
 
     <div id="curator-feed-default-feed-layout">
