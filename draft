@@ -69,7 +69,7 @@
     </nav>
     
     <header id="home">
-        <!-- Header content -->
+        <h1>Zine Bros--zines posted infrequently and without notice</h1>
     </header>
     
     <section class="zine-category" id="16-page-zines">
