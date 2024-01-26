@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zine Bros amaz-ine zines!</title>
+    <style>
+        /* Your CSS styles */
+    </style>
+</head>
+<body>
+    <nav>
+        <!-- Navigation links -->
+    </nav>
+    
+    <header id="home">
+        <!-- Header content -->
+    </header>
+    
+    <section class="zine-category" id="16-page-zines">
+        <!-- 16-page zine links -->
+    </section>
+
+    <section class="zine-category" id="8-page-zines">
+        <!-- 8-page zine links -->
+    </section>
+
+    <div id="curator-feed-default-feed-layout">
+        <a href="https://curator.io" target="_blank" class="crt-logo crt-tag">Powered by Curator.io</a>
+    </div>
+
+    <section id="about">
+        <!-- About section content -->
+    </section>
+
+    <section id="contact">
+        <!-- Contact section content -->
+    </section>
+
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <script type="text/javascript">
+        /* curator-feed-default-feed-layout */
+        (function(){
+            var i,e,d=document,s="script";
+            i=d.createElement("script");i.async=1;i.charset="UTF-8";
+            i.src="https://cdn.curator.io/published/055c4951-381b-479e-b5b9-c90512b6a4c4.js";
+            e=d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
+        })();
+    </script>
+
+</body>
+</html>
 
